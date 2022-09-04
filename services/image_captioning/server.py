@@ -25,10 +25,18 @@ use_cuda = torch.cuda.is_available()
 # use fp16 only when GPU is available
 use_fp16 = False
 
-overrides = {"bpe_dir": "/ofa/utils/BPE", "eval_cider": False, "beam": 5, "max_len_b": 16, "no_repeat_ngram_size": 3, "seed": 7}
+overrides = {
+    "bpe_dir": "/ofa/utils/BPE",
+    "eval_cider": False,
+    "beam": 5,
+    "max_len_b": 16,
+    "no_repeat_ngram_size": 3,
+    "seed": 7
+}
+
 models, cfg, task = checkpoint_utils.load_model_ensemble_and_task(
-        utils.split_paths('/opt/conda/lib/python3.7/site-packages/data/models/caption.pt'),
-        arg_overrides=overrides)
+    utils.split_paths('/opt/conda/lib/python3.7/site-packages/data/models/caption.pt'),
+    arg_overrides=overrides)
 
 # Move models to GPU
 for model in models:
