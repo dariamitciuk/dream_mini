@@ -134,5 +134,4 @@ services:
     environment:
       - CUDA_VISIBLE_DEVICES=8
   dff-template-skill:
-  image-captioning:
 version: '3.7'
