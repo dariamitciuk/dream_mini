@@ -121,7 +121,7 @@
             "image_captioning": {
                 "connector": {
                     "protocol": "http",
-                    "timeout": 5,
+                    "timeout": 3,
                     "url": "http://image_captioning:8123/respond"
                 },
                 "dialog_formatter": "state_formatters.dp_formatters:cobot_classifiers_formatter_service",
