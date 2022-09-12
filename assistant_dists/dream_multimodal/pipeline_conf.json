@@ -124,12 +124,9 @@
                     "timeout": 3,
                     "url": "http://image_captioning:8123/respond"
                 },
-                "dialog_formatter": "state_formatters.dp_formatters:cobot_classifiers_formatter_service",
-                "response_formatter": "state_formatters.dp_formatters:skill_with_attributes_formatter_service",
-                "previous_services": [
-                    "skill_selectors"
-                ],
-                "state_manager_method": "add_hypothesis"
+                "dialog_formatter": "state_formatters.dp_formatters:image_formatter_service",
+                "response_formatter": "state_formatters.dp_formatters:simple_formatter_service",
+                "state_manager_method": "add_annotation"
             }
         },
         "skill_selectors": {
