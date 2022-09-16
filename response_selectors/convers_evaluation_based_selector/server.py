@@ -101,6 +101,7 @@ def respond():
                         )
                         logger.info(msg)
 
+
                 curr_scores += [
                     calculate_single_evaluator_score(skill_data.get("annotations"), skill_data["confidence"])
                 ]
