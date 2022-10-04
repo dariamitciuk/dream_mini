@@ -17,11 +17,13 @@ services:
     ports:
       - 8011:8011
   files:
-    ports:
-      - 3000:3000
     volumes:
       - "~/.deeppavlov/file_server:/tmp"
+    ports:
+      - 3000:3000
   image-skill:
+    volumes:
+      - "./skills/image_skill:/src"
     ports:
       - 8122:8122
   convers-evaluation-selector:

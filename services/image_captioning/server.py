@@ -1,24 +1,25 @@
+import logging
 import os
+import time
 
-import torch
-from torchvision import transforms
-from io import BytesIO
 import numpy as np
 import requests
-from fairseq import utils
-from fairseq import checkpoint_utils
-
-from utils.eval_utils import eval_step
-from tasks.mm_tasks.caption import CaptionTask
-from fairseq.tasks import register_task
-from PIL import Image
-import logging
-import time
+import sentry_sdk
+import torch
 from flask import Flask, request, jsonify
 from healthcheck import HealthCheck
-import sentry_sdk
-from sentry_sdk.integrations.flask import FlaskIntegration
+from io import BytesIO
+from PIL import Image
 from pydantic import BaseModel
+from sentry_sdk.integrations.flask import FlaskIntegration
+from torchvision import transforms
+
+from fairseq import utils
+from fairseq import checkpoint_utils
+from fairseq.tasks import register_task
+from tasks.mm_tasks.caption import CaptionTask
+from utils.eval_utils import eval_step
+
 
 class Payload(BaseModel):
     url: str
@@ -80,9 +81,7 @@ pad_idx = task.src_dict.pad()
 
 
 def encode_text(text, length=None, append_bos=False, append_eos=False):
-    s = task.tgt_dict.encode_line(
-        line=task.bpe.encode(text), add_if_not_exist=False, append_eos=False
-    ).long()
+    s = task.tgt_dict.encode_line(line=task.bpe.encode(text), add_if_not_exist=False, append_eos=False).long()
     if length is not None:
         s = s[:length]
     if append_bos:
@@ -96,9 +95,7 @@ def encode_text(text, length=None, append_bos=False, append_eos=False):
 def construct_sample(image):
     patch_image = patch_resize_transform(image).unsqueeze(0)
     patch_mask = torch.tensor([True])
-    src_text = encode_text(
-        " what does the image describe?", append_bos=True, append_eos=True
-    ).unsqueeze(0)
+    src_text = encode_text(" what does the image describe?", append_bos=True, append_eos=True).unsqueeze(0)
     src_length = torch.LongTensor([s.ne(pad_idx).long().sum() for s in src_text])
     sample = {
         "id": np.array(["42"]),
@@ -122,9 +119,7 @@ def apply_half(t):
 sentry_sdk.init(dsn=os.getenv("SENTRY_DSN"), integrations=[FlaskIntegration()])
 
 
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
