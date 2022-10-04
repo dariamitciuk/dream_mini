@@ -65,6 +65,8 @@ def respond():
     selected_confidences = []
     selected_human_attributes = []
     selected_bot_attributes = []
+    selected_attributes = []
+    attributes = {}
 
     for i, (dialog, all_prev_active_skills) in enumerate(zip(dialogs_batch, all_prev_active_skills_batch)):
         curr_confidences = []
@@ -77,6 +79,9 @@ def respond():
             logger.info(pprint.pformat(curr_candidates, compact=False))
 
             for skill_data in curr_candidates:
+                image = skill_data.get('image')
+                if image is not None:
+                    attributes = {'image': image}
                 if len(dialog["utterances"]) > 1:
                     assert len(dialog["human_utterances"]) > 0
                     assert len(dialog["bot_utterances"]) > 0
@@ -144,6 +149,7 @@ def respond():
         selected_confidences.append(best_confidence)
         selected_human_attributes.append(best_human_attributes)
         selected_bot_attributes.append(best_bot_attributes)
+        selected_attributes.append(attributes)
 
     logger.info(
         f"Choose selected_skill_names: {selected_skill_names};"
@@ -162,6 +168,7 @@ def respond():
                 selected_confidences,
                 selected_human_attributes,
                 selected_bot_attributes,
+                selected_attributes
             )
         )
     )

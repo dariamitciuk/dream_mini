@@ -2,7 +2,9 @@ import os
 
 import torch
 from torchvision import transforms
+from io import BytesIO
 import numpy as np
+import requests
 from fairseq import utils
 from fairseq import checkpoint_utils
 
@@ -16,7 +18,10 @@ from flask import Flask, request, jsonify
 from healthcheck import HealthCheck
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
+from pydantic import BaseModel
 
+class Payload(BaseModel):
+    url: str
 # Register caption task
 register_task("caption", CaptionTask)
 
@@ -128,25 +133,24 @@ logging.getLogger("werkzeug").setLevel("WARNING")
 
 
 @app.route("/respond", methods=["POST"])
-def respond():
+def respond(payload: Payload):
     st_time = time.time()
-
-    img_paths = request.json.get("text", [])
+    resp = requests.get(payload.url)
+    resp.raise_for_status()
+    image = Image.open(BytesIO(resp.content))
     captions = []
     try:
-        for img_path in img_paths:
-            image = Image.open(img_path)
-            image.thumbnail((256, 256))
+        image.thumbnail((256, 256))
 
-            # Construct input sample & preprocess for GPU if cuda available
-            sample = construct_sample(image)
-            sample = utils.move_to_cuda(sample) if use_cuda else sample
-            sample = utils.apply_to_sample(apply_half, sample) if use_fp16 else sample
+        # Construct input sample & preprocess for GPU if cuda available
+        sample = construct_sample(image)
+        sample = utils.move_to_cuda(sample) if use_cuda else sample
+        sample = utils.apply_to_sample(apply_half, sample) if use_fp16 else sample
 
-            with torch.no_grad():
-                caption, scores = eval_step(task, generator, models, sample)
+        with torch.no_grad():
+            caption, scores = eval_step(task, generator, models, sample)
 
-            captions.append(caption)
+        captions.append(caption)
 
     except Exception as exc:
         logger.exception(exc)

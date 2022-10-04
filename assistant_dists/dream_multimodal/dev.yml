@@ -16,6 +16,14 @@ services:
       - "./annotators/SentSeg:/src"
     ports:
       - 8011:8011
+  files:
+    ports:
+      - 3000:3000
+    volumes:
+      - "~/.deeppavlov/file_server:/tmp"
+  image-skill:
+    ports:
+      - 8122:8122
   convers-evaluation-selector:
     volumes:
       - "./response_selectors/convers_evaluation_based_selector:/src"

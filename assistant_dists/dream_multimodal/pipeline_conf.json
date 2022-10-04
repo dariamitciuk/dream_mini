@@ -119,15 +119,15 @@
                 ]
             },
             "image_captioning": {
-                "connector": {
-                    "protocol": "http",
-                    "timeout": 3,
-                    "url": "http://image_captioning:8123/respond"
-                },
-                "dialog_formatter": "state_formatters.dp_formatters:image_formatter_service",
-                "response_formatter": "state_formatters.dp_formatters:simple_formatter_service",
-                "state_manager_method": "add_annotation"
-            }
+                 "connector": {
+                     "protocol": "http",
+                     "timeout": 3,
+                     "url": "http://image-captioning:8123/respond"
+                 },
+                 "dialog_formatter": "state_formatters.dp_formatters:image_formatter_service",
+                 "response_formatter": "state_formatters.dp_formatters:simple_formatter_service",
+                 "state_manager_method": "add_annotation"
+             }
         },
         "skill_selectors": {
             "rule_based_selector": {
@@ -146,6 +146,19 @@
             }
         },
         "skills": {
+            "image_skill": {
+                 "connector": {
+                     "protocol": "http",
+                     "timeout": 2,
+                     "url": "http://image-skill:8122"
+                 },
+                 "dialog_formatter": "state_formatters.dp_formatters:image_skill_formatter",
+                 "response_formatter": "state_formatters.dp_formatters:simple_formatter_service",
+                 "previous_services": [
+                     "skill_selectors"
+                 ],
+                 "state_manager_method": "add_hypothesis"
+                },
             "dff_program_y_skill": {
                 "connector": {
                     "protocol": "http",

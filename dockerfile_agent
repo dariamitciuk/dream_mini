@@ -22,7 +22,7 @@ WORKDIR /dp-agent
 
 RUN mkdir /pavlov && \
     cd /pavlov && \
-    git clone https://github.com/deeppavlovteam/DeepPavlov.git && \
+    git clone https://github.com/deeppavlov/DeepPavlov.git && \
     cd DeepPavlov && \
     pip install -e .
 
@@ -37,5 +37,6 @@ ENV DPA_LAUNCHING_ENV "docker"
 COPY . /dp-agent/.
 #COPY agent_settings.py /usr/local/lib/python3.7/site-packages/deeppavlov_agent/settings.py
 #RUN printf 'debug = False\nresponse_logger = False' > /dp-agent/dp_agent_settings.py
+#RUN pip install https://codeload.github.com/deepmipt/dp-agent/tar.gz/7548ba0480109f20224e5b32593aef7c54c20d2b
 
 

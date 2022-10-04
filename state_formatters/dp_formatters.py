@@ -37,6 +37,15 @@ def eliza_formatter_dialog(dialog: Dict) -> List[Dict]:
     ]
 
 
+def image_skill_formatter(dialog: dict) -> List[Dict]:
+    return [{"url": dialog["human_utterances"][-1]["attributes"].get("image")}]
+
+
+def image_formatter_service(dialog: Dict) -> List[Dict]:
+    user_uttr = dialog["human_utterances"][-1]
+    if user_uttr["attributes"].get("image") is not None:
+        return [{"url": dialog["human_utterances"][-1]["attributes"].get("image")}]
+
 def cobot_qa_formatter_service(payload: List):
     # Used by: cobot_qa
     hyps = []
@@ -147,6 +156,7 @@ def base_response_selector_formatter_service(payload: List):
             "confidence": payload[2],
             "human_attributes": payload[3],
             "bot_attributes": payload[4],
+            "attributes": payload[5]
         }
 
 
