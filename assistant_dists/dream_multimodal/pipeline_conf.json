@@ -150,7 +150,7 @@
                  "connector": {
                      "protocol": "http",
                      "timeout": 2,
-                     "url": "http://image-skill:8128"
+                     "url": "http://image-skill:8131"
                  },
                  "dialog_formatter": "state_formatters.dp_formatters:image_skill_formatter",
                  "response_formatter": "state_formatters.dp_formatters:simple_formatter_service",

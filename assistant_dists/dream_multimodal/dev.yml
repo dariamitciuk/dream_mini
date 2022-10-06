@@ -25,7 +25,7 @@ services:
     volumes:
       - "./skills/image_skill:/src"
     ports:
-      - 8128:8128
+      - 8131:8131
   convers-evaluation-selector:
     volumes:
       - "./response_selectors/convers_evaluation_based_selector:/src"
