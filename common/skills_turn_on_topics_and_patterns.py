@@ -9,6 +9,7 @@ from common.coronavirus import virus_compiled
 from common.food import FOOD_COMPILED_PATTERN, FOOD_SKILL_TRANSFER_PHRASES_RE
 from common.funfact import FUNFACT_COMPILED_PATTERN
 from common.game_cooperative_skill import GAMES_COMPILED_PATTERN
+from common.images import IMAGE_PATTERN
 from common.movies import MOVIE_COMPILED_PATTERN
 from common.music import MUSIC_COMPILED_PATTERN
 from common.science import SCIENCE_COMPILED_PATTERN
@@ -156,6 +157,11 @@ SKILL_TRIGGERS = {
         "detected_topics": [],
         "intents": ["tell_me_a_story"],
     },
+    "dff_image_response_skill": {
+            "compiled_patterns": [IMAGE_PATTERN],
+            "previous_bot_patterns": [],
+            "detected_topics": [],
+            "intents": [],
 }
 
 

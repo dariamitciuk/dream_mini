@@ -21,9 +21,9 @@ services:
       - "~/.deeppavlov/file_server:/tmp"
     ports:
       - 3000:3000
-  image-skill:
+  dff-image-response-skill:
     volumes:
-      - "./skills/image_skill:/src"
+      - "./skills/dff_image_response_skill:/src"
     ports:
       - 8131:8131
   convers-evaluation-selector:

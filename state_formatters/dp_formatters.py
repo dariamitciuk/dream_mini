@@ -37,8 +37,9 @@ def eliza_formatter_dialog(dialog: Dict) -> List[Dict]:
     ]
 
 
-def image_skill_formatter(dialog: dict) -> List[Dict]:
-    return [{"url": dialog["human_utterances"][-1]["attributes"].get("image")}]
+def image_skill_formatter(dialog: Dict) -> List[Dict]:
+    return utils.dff_formatter(dialog, "dff_image_response_skill")
+    #return [{"url": dialog["human_utterances"][-1]["attributes"].get("image")}]
 
 
 def image_formatter_service(dialog: Dict) -> List[Dict]:

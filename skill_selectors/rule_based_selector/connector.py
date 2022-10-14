@@ -63,7 +63,7 @@ class RuleBasedSkillSelectorConnector:
             dialog_len = len(dialog["human_utterances"])
 
             if user_uttr["attributes"].get("image") is not None:
-                skills_for_uttr.append("image_skill")
+                skills_for_uttr.append("dff_image_response_skill")
             exit_cond = "exit" in intent_catcher_intents and (
                 dialog_len == 1 or (dialog_len == 2 and len(user_uttr_text.split()) > 3)
             )
@@ -209,6 +209,7 @@ class RuleBasedSkillSelectorConnector:
                         "dff_bot_persona_skill",
                         "dff_gaming_skill",
                         "dff_short_story_skill",
+                        "dff_image_response_skill",
                     ],
                 )
                 # adding linked-to skills

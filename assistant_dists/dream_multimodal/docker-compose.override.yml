@@ -1,6 +1,7 @@
 services:
   agent:
-    command: sh -c 'bin/wait && python -m deeppavlov_agent.run agent.pipeline_config=assistant_dists/dream_multimodal/pipeline_conf.json agent.channel=http'
+    command: sh -c 'bin/wait && python -m deeppavlov_agent.run agent.channel=telegram agent.telegram_token=5621533275:AAFqiIzlFUQNpP_GJQRrs_Q7F5OyVk39mYU agent.pipeline_config=assistant_dists/dream_multimodal/pipeline_conf.json'
+    #sh -c 'bin/wait && python -m deeppavlov_agent.run agent.pipeline_config=assistant_dists/dream_multimodal/pipeline_conf.json agent.channel=http'
     environment:
       WAIT_HOSTS: "dff-program-y-skill:8008, sentseg:8011, convers-evaluation-selector:8009, 
           dff-intent-responder-skill:8012, intent-catcher:8014, badlisted-words:8018,
@@ -39,10 +40,10 @@ services:
         reservations:
           memory: 1.5G
 
-  image-skill:
+  dff-image-response-skill:
      env_file: [.env]
      build:
-       context: skills/image_skill
+       context: skills/dff_image_response_skill
      command: uvicorn server:app --host 0.0.0.0 --port 8131
 
   convers-evaluation-selector:

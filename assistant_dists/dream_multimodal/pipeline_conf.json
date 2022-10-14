@@ -146,11 +146,11 @@
             }
         },
         "skills": {
-            "image_skill": {
+            "dff_image_response_skill": {
                  "connector": {
                      "protocol": "http",
                      "timeout": 2,
-                     "url": "http://image-skill:8131"
+                     "url": "http://dff-image-response-skill:8131"
                  },
                  "dialog_formatter": "state_formatters.dp_formatters:image_skill_formatter",
                  "response_formatter": "state_formatters.dp_formatters:simple_formatter_service",
