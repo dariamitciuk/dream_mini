@@ -46,6 +46,8 @@ def image_formatter_service(dialog: Dict) -> List[Dict]:
     user_uttr = dialog["human_utterances"][-1]
     if user_uttr["attributes"].get("image") is not None:
         return [{"url": dialog["human_utterances"][-1]["attributes"].get("image")}]
+    else:
+        return None
 
 def cobot_qa_formatter_service(payload: List):
     # Used by: cobot_qa
@@ -150,7 +152,7 @@ def base_response_selector_formatter_service(payload: List):
     # Used by: base_response_selector_formatter
     if len(payload) == 3:
         return {"skill_name": payload[0], "text": payload[1], "confidence": payload[2]}
-    elif len(payload) == 5:
+    elif len(payload) == 6:
         return {
             "skill_name": payload[0],
             "text": payload[1],

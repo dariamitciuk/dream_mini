@@ -156,12 +156,12 @@ SKILL_TRIGGERS = {
         "previous_bot_patterns": [],
         "detected_topics": [],
         "intents": ["tell_me_a_story"],
-    },
-    "dff_image_response_skill": {
-            "compiled_patterns": [IMAGE_PATTERN],
-            "previous_bot_patterns": [],
-            "detected_topics": [],
-            "intents": [],
+    }
+    # "dff_image_response_skill": {
+    #         "compiled_patterns": [IMAGE_PATTERN],
+    #         "previous_bot_patterns": [],
+    #         "detected_topics": [],
+    #         "intents": [],
 }
 
 
